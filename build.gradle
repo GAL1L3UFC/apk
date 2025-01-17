@@ -1,10 +1,21 @@
-// Top-level build file where you can add configuration options common to all sub-projects/modules.
+// build.gradle (root) - arquivo de configuração global
 buildscript {
+    repositories {
+        google() // Repositório do Google para plugins e dependências
+        mavenCentral() // Repositório Maven Central
+        jcenter() // Repositório JCenter (se necessário)
+        maven { url 'https://jitpack.io' } // Repositório JitPack, se precisar de dependências de lá
+    }
+
     dependencies {
+        // Plugin OneSignal para Android
         classpath 'gradle.plugin.com.onesignal:onesignal-gradle-plugin:0.14.0'
+        // Outros plugins que você pode estar usando, como o plugin do Firebase
+        classpath 'com.google.gms:google-services:4.4.0' // Plugin do Google Services
     }
 }
+
 plugins {
-    id 'com.android.application' version '8.2.2' apply false
-    id('com.google.gms.google-services') version '4.4.0' apply false
+    id 'com.android.application' version '8.2.2' apply false // Plugin Android
+    id 'com.google.gms.google-services' version '4.4.0' apply false // Google Services
 }
