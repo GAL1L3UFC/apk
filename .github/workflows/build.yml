@@ -1,0 +1,51 @@
+name: Build Android APK
+
+on:
+  push:
+    branches:
+      - main  # Executa ao enviar para a branch principal
+  pull_request:
+    branches:
+      - main  # Executa ao criar pull requests para a branch principal
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      # Etapa 1: Fazer checkout do código
+      - name: Checkout Code
+        uses: actions/checkout@v3
+
+      # Etapa 2: Configurar a JDK
+      - name: Set Up JDK
+        uses: actions/setup-java@v3
+        with:
+          java-version: '17'  # Altere para a versão necessária (ex: '11' ou '8')
+          distribution: 'temurin'
+
+      # Etapa 3: Configurar cache para dependências Gradle
+      - name: Cache Gradle Dependencies
+        uses: actions/cache@v3
+        with:
+          path: |
+            ~/.gradle/caches
+            ~/.gradle/wrapper
+          key: gradle-${{ runner.os }}-${{ hashFiles('**/*.gradle*', '**/gradle-wrapper.properties') }}
+          restore-keys: |
+            gradle-${{ runner.os }}
+
+      # Etapa 4: Dar permissões ao gradlew
+      - name: Grant execute permission for gradlew
+        run: chmod +x gradlew
+
+      # Etapa 5: Compilar o APK
+      - name: Build APK
+        run: ./gradlew assembleRelease
+
+      # Etapa 6: Salvar o APK como artefato
+      - name: Upload APK
+        uses: actions/upload-artifact@v3
+        with:
+          name: app-release-apk
+          path: app/build/outputs/apk/release/*.apk  # Ajuste o caminho conforme necessário
