@@ -1,4 +1,4 @@
-name: Java CI with Gradle
+  name: Java CI with Gradle
 
 on:
   push:
@@ -27,6 +27,13 @@ jobs:
     - name: Build APK with Gradle
       run: ./gradlew assembleRelease  # ou assembleDebug, se necessário
 
+    # Upload do APK como artefato
+    - name: Upload APK as artifact
+      uses: actions/upload-artifact@v3
+      with:
+        name: app-release-apk
+        path: app/build/outputs/apk/release/*.apk  # Altere conforme necessário (debug ou release)
+        
   dependency-submission:
     runs-on: ubuntu-latest
     permissions:
