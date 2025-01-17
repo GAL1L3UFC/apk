@@ -1,0 +1,91 @@
+package nemosofts.online.live.fragment.player;
+
+import android.content.Intent;
+import android.net.Uri;
+import android.os.Bundle;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.ImageView;
+import android.widget.Toast;
+
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.core.app.ActivityCompat;
+import androidx.fragment.app.Fragment;
+
+import com.squareup.picasso.Picasso;
+
+import nemosofts.online.live.R;
+
+public class ExternalImageFragment extends Fragment {
+
+    @NonNull
+    public static ExternalImageFragment newInstance(String streamUrl, String imageCover, boolean isPlayVisible, String external) {
+        ExternalImageFragment f = new ExternalImageFragment();
+        Bundle args = new Bundle();
+        args.putString("streamUrl", streamUrl);
+        args.putString("imageCover", imageCover);
+        args.putBoolean("isPlayVisible", isPlayVisible);
+        args.putString("external", external);
+        f.setArguments(args);
+        return f;
+    }
+
+    private String streamUrl, imageUrl, external;
+    private boolean isPlayVisible;
+
+    @Nullable
+    @Override
+    public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+        View rootView = inflater.inflate(R.layout.fragment_embedded_image, container, false);
+
+        if (getArguments() != null) {
+            streamUrl = getArguments().getString("streamUrl");
+            imageUrl = getArguments().getString("imageCover");
+            isPlayVisible = getArguments().getBoolean("isPlayVisible");
+            external = getArguments().getString("external");
+        }
+
+        ImageView imageCover = rootView.findViewById(R.id.imageCover);
+        ImageView imagePlay = rootView.findViewById(R.id.imagePlay);
+
+        imagePlay.setVisibility(isPlayVisible ? View.VISIBLE : View.GONE);
+        Picasso.get().load(imageUrl).into(imageCover);
+
+        imagePlay.setOnClickListener(v -> {
+            if (!streamUrl.isEmpty()) {
+                if (external.equals("browser")){
+                    Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(streamUrl));
+                    ActivityCompat.startActivity(requireContext(), intent, null);
+
+                } else if (external.equals("hls_player")){
+                    final String application = "com.online.player";
+                    try {
+                        Intent sendIntent = new Intent(Intent.ACTION_SEARCH);
+                        sendIntent.setPackage(application);
+                        sendIntent.putExtra("video_title", "7UP Madras Gig");
+                        sendIntent.putExtra("video_url", "https://download.nemosofts.com/Mervin.mp4");
+                        sendIntent.putExtra("video_agent", "");
+                        // videoType = normal or youtube or  webview
+                        sendIntent.putExtra("video_type", "normal");
+                        sendIntent.setType("text/plain");
+                        sendIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                        startActivity(sendIntent);
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                        startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("http://play.google.com/store/apps/details?id=" + application)));
+                    }
+                } else {
+                    Intent intent = new Intent(Intent.ACTION_VIEW);
+                    intent.setDataAndType(Uri.parse(streamUrl), "video/*");
+                    startActivity(Intent.createChooser(intent, "live"));
+                }
+            } else {
+                Toast.makeText(getActivity(), getString(R.string.stream_not_found), Toast.LENGTH_SHORT).show();
+            }
+        });
+
+        return rootView;
+    }
+}

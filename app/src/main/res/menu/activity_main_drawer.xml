@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:showIn="navigation_view">
+
+    <item
+        android:id="@+id/nav_home"
+        android:icon="@drawable/ic_home"
+        android:title="@string/nav_home" />
+
+    <item
+        android:id="@+id/nav_latest"
+        android:icon="@drawable/ic_latest"
+        android:title="@string/latest" />
+
+    <item
+        android:id="@+id/nav_most"
+        android:icon="@drawable/ic_trending_up"
+        android:title="@string/trending" />
+
+    <item
+        android:id="@+id/nav_category"
+        android:icon="@drawable/ic_folder"
+        android:title="@string/categories" />
+
+    <item
+        android:id="@+id/nav_restore"
+        android:icon="@drawable/ic_restore"
+        android:title="@string/recently" />
+
+    <item
+        android:id="@+id/nav_event"
+        android:icon="@drawable/event_note"
+        android:title="@string/live_event" />
+
+    <item
+        android:id="@+id/nav_fav"
+        android:icon="@drawable/ic_heart"
+        android:title="@string/favourite" />
+
+    <item
+        android:id="@+id/nav_suggest"
+        android:icon="@drawable/ic_playlist_add"
+        android:title="@string/suggestion" />
+
+    <item
+        android:id="@+id/nav_profile"
+        android:icon="@drawable/ic_profile"
+        android:title="@string/nav_profile" />
+
+    <item
+        android:id="@+id/nav_settings"
+        android:icon="@drawable/ic_settings"
+        android:title="@string/nav_settings" />
+
+    <item
+        android:id="@+id/nav_login"
+        android:icon="@drawable/ic_login"
+        android:title="@string/login" />
+
+</menu>

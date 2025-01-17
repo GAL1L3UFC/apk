@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "196162143307",
+    "project_id": "new1-dc9c4",
+    "storage_bucket": "new1-dc9c4.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:196162143307:android:fa6bec0883fda0315cf9ce",
+        "android_client_info": {
+          "package_name": "nemosofts.online.live"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "196162143307-h2j4oip24t3g176jt4fh6pvq0944na75.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAf0suvHX0Vnd5UxFYv5UBstJNj2BXXHGM"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "196162143307-h2j4oip24t3g176jt4fh6pvq0944na75.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
